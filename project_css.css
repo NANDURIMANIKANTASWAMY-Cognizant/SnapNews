@@ -1,0 +1,64 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.nyt-button,
+.other-resources-button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.options-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  background-color: #6c757d;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: white;
+}
+
+.input-icon i {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.custom-input {
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.custom-input::placeholder {
+  color: white;
+  opacity: 0.8;
+}

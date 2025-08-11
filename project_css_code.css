@@ -1,0 +1,46 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+/* NYT and Other Resources buttons */
+.nyt-button,
+.other-resources-button {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+/* When active (clicked) turn grey */
+.nyt-button:focus,
+.nyt-button.active,
+.other-resources-button:focus,
+.other-resources-button.active {
+    background-color: grey !important;
+    color: white;
+}
+
+.options-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}

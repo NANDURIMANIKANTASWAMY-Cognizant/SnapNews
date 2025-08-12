@@ -170,6 +170,57 @@ async function searchNews() {
       // If no source is selected, fetch both
     }
     // both api search
+   else {
+            console.log("Hello both");
+ 
+            // NYT fetch
+            const nytUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${encodeURIComponent(query)}&sort=best&api-key=ZtHh7l6hPlAyPAqfqinDMvLriAOTsuRO`;
+            const nytResponse = await fetch(nytUrl);
+            const nytData = await nytResponse.json();
+            const nytArticles = nytData.response.docs.slice(0, 10);
+ 
+            nytArticles.forEach(article => {
+                const title = article.headline.main;
+                const content = article.abstract || article.lead_paragraph || 'No preview available';
+ 
+                const card = document.createElement('div');
+                card.className = 'col-md-6';
+                card.innerHTML = `
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>NYT:</strong> ${title}</h5>
+                            <p class="card-text">${content}</p>
+                            <button class="btn btn-outline-primary" onclick="showSummary('${escapeQuotes(title)}', '${escapeQuotes(content)}')">Summarize</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+ 
+            // NewsData fetch
+            const otherUrl = `https://newsdata.io/api/1/latest?apikey=pub_9e246252d0904458b7dab582502a600d&q=${encodeURIComponent(query)}&language=en`;
+            const otherResponse = await fetch(otherUrl);
+            const otherData = await otherResponse.json();
+            const otherArticles = otherData.results || [];
+ 
+            otherArticles.forEach(article => {
+                const title = article.title;
+                const content = article.description || 'No preview available';
+ 
+                const card = document.createElement('div');
+                card.className = 'col-md-6';
+                card.innerHTML = `
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Others:</strong> ${title}</h5>
+                            <p class="card-text">${content}</p>
+                            <button class="btn btn-outline-primary" onclick="showSummary('${escapeQuotes(title)}', '${escapeQuotes(content)}')">Summarize</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        } 
   } catch (error) {
     console.error("Error fetching news:", error);
     container.innerHTML = `<p class="text-danger">Failed to fetch news. Please try again later.</p>`;
@@ -177,5 +228,19 @@ async function searchNews() {
 }
 
 //escapeQuotes function
+function escapeQuotes(text) {
+    return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+  }
 
 //show summary function
+function showSummary(title, content) {
+   const summary = content.length > 150
+     ? content.slice(0, 150) + '...'
+     : content;
+ 
+    document.getElementById('summaryModalLabel').textContent = title;
+   document.getElementById('summaryContent').textContent = summary;
+ 
+   const modal = new bootstrap.Modal(document.getElementById('summaryModal'));
+   modal.show();
+ }

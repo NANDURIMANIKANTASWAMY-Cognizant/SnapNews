@@ -19,14 +19,24 @@ body {
   border-top: none;
 }
 
+/* NYT and Other Resources buttons */
 .nyt-button,
 .other-resources-button {
   background-color: black;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 10px 20px;
   font-weight: bold;
+}
+
+/* When active (clicked) turn grey */
+.nyt-button:focus,
+.nyt-button.active,
+.other-resources-button:focus,
+.other-resources-button.active {
+  background-color: grey !important;
+  color: white;
 }
 
 .options-container {

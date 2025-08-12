@@ -2,7 +2,7 @@ import { InferenceClient } from 'https://cdn.jsdelivr.net/npm/@huggingface/infer
 import { createRepo, commit, deleteRepo, listFiles } from 'https://cdn.jsdelivr.net/npm/@huggingface/hub@2.4.1/+esm';
 
 
-const HF_TOKEN ="";
+// const HF_TOKEN ="";
 // Example usage
 const client = new InferenceClient(HF_TOKEN);
 console.log("Hugging Face client initialized");

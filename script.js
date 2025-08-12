@@ -22,14 +22,6 @@ function showOtherOptions() {
   document.getElementById("filterContent").innerHTML = `
             <div class="row g-3">
                 <div class="col-12 col-md-6">
-                    <label class="form-label"><i class="bi bi-calendar-date"></i> From Date</label>
-                    <input type="date" class="form-control" id="otherFromDate" onchange="searchNews()">
-                </div>
-                <div class="col-12 col-md-6">
-                    <label class="form-label"><i class="bi bi-calendar-date-fill"></i> To Date</label>
-                    <input type="date" class="form-control" id="otherToDate" onchange="searchNews()">
-                </div>
-                <div class="col-12 col-md-6">
                     <label class="form-label"><i class="bi bi-geo-alt"></i> Country</label>
                     <select class="form-select" id="otherCountry" onchange="searchNews()">
                         <option selected disabled>Select a country</option>
@@ -454,6 +446,7 @@ async function searchNews() {
       const toDate = document.getElementById("otherToDate")?.value;
       const country = document.getElementById("otherCountry")?.value;
       const language = document.getElementById("languageSelector")?.value;
+      let timeFrame = "";
 
       let otherUrl = `https://newsdata.io/api/1/latest?apikey=pub_9e246252d0904458b7dab582502a600d&q=${encodeURIComponent(
         query
@@ -467,14 +460,6 @@ async function searchNews() {
       }
       if (country !== "Select a country") {
         otherUrl += `&country=${country.toLowerCase()}`;
-      }
-      if (fromDate) {
-        otherUrl += `&from_date=${fromDate}`;
-        console.log("fromDtaae: " + fromDate);
-      }
-      if (toDate) {
-        otherUrl += `&to_date=${toDate}`;
-        console.log("todate" + toDate);
       }
       const response = await fetch(otherUrl);
       const data = await response.json();

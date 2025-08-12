@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SnapNews</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="project_css_code.css">
 </head>
 
 <body>
@@ -14,37 +16,43 @@
     <div class="container py-5">
         <h1 class="text-center mb-4">SnapNews: <span class="text-primary">Search. Read. Summarize.</span></h1>
 
-        <div class="text-center mb-4">
-            <div class="d-inline-flex gap-2">
-                <button class="btn nyt-button" type="button" data-bs-toggle="collapse" data-bs-target="#nytOptions"
-                    aria-expanded="false" aria-controls="nytOptions">
-                    NYT
-                </button>
-                <button class="btn other-resources-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#otherResourcesOptions" aria-expanded="false" aria-controls="otherResourcesOptions">
-                    Other Resources
-                </button>
+       <div class="input-group mb-4">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search news...">
+    <button class="btn btn-primary" onclick="searchNews()">Search</button>
+    <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">
+        <i class="bi bi-sliders"></i>
+    </button>
+</div>
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Filter Options</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="collapse mt-3" id="nytOptions">
-                <div class="options-container">
-                    <input type="date" class="form-control" placeholder="From date">
-                    <input type="date" class="form-control" placeholder="To date">
+            <div class="modal-body">
+                <div class="d-flex justify-content-center gap-3 mb-3">
+                    <button class="btn btn-outline-dark" onclick="showNYTOptions()">
+                        <i class="bi bi-newspaper"></i> NYT
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="showOtherOptions()">
+                        <i class="bi bi-globe"></i> Other Resources
+                    </button>
                 </div>
+
+                <!-- Dynamic Filter Content -->
+                <div id="filterContent"></div>
             </div>
 
-            <div class="collapse mt-3" id="otherResourcesOptions">
-                <div class="options-container">
-                    <input type="text" class="form-control" placeholder="Country">
-                    <input type="text" class="form-control" placeholder="Language">
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="input-group mb-4">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search news...">
-            <button class="btn btn-primary" onclick="searchNews()">Search</button>
-        </div>
 
         <div id="newsContainer" class="row"></div>
     </div>
@@ -66,7 +74,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 
 </body>
 

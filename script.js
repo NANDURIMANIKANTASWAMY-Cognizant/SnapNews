@@ -1,5 +1,14 @@
+import { InferenceClient } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@4.6.1/+esm';
+import { createRepo, commit, deleteRepo, listFiles } from 'https://cdn.jsdelivr.net/npm/@huggingface/hub@2.4.1/+esm';
+
+
+const HF_TOKEN ="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";
+// Example usage
+const client = new InferenceClient(HF_TOKEN);
+console.log("Hugging Face client initialized");
+
 let selectedSource = null;
-    function showNYTOptions() {
+function showNYTOptions() {
         selectedSource = 'nyt';
         console.log(selectedSource);
         document.getElementById('filterContent').innerHTML = `
@@ -72,6 +81,40 @@ async function searchNews() {
 
 
 //escapeQuotes function
-
+function escapeQuotes(text) {
+    return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+  }
 //show summary function
 
+
+async function showSummary(title, content) {
+const out = await client.chatCompletion({
+  model: "meta-llama/Llama-3.1-8B-Instruct",
+  messages: [
+    {
+      role: "user",
+      content: `Here is a news headline and its description. Please summarize or elaborate it in a clear and informative way for readers.
+
+Headline: ${title}
+Description: ${content}`
+    }
+  ],
+  max_tokens: 512
+});
+
+console.log(out.choices[0].message.content);
+   const summary = out.choices[0].message.content
+ 
+    document.getElementById('summaryModalLabel').textContent = title;
+   document.getElementById('summaryContent').textContent = summary;
+ 
+   const modal = new bootstrap.Modal(document.getElementById('summaryModal'));
+   modal.show();
+ }
+
+
+
+window.showNYTOptions = showNYTOptions;
+window.searchNews = searchNews;
+window.showSummary = showSummary;
+window.escapeQuotes = escapeQuotes;
